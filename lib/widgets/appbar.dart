@@ -22,33 +22,32 @@ class _AppbarState extends State<Appbar> {
 
   @override
   void dispose() {
+    super.dispose();
     searchController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: defaultMagrin),
-      child: isSearch == false
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                titleAppbar(),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      isSearch = true;
-                    });
-                  },
-                  child: Icon(
-                    Icons.search,
-                    color: secondary,
-                  ),
-                )
-              ],
-            )
-          : search(),
-    );
+    return isSearch == false
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              titleAppbar(),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    isSearch = true;
+                    searchController.clear();
+                  });
+                },
+                child: Icon(
+                  Icons.search,
+                  color: secondary,
+                ),
+              )
+            ],
+          )
+        : search();
   }
 
   Widget search() {
