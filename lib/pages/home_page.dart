@@ -26,7 +26,7 @@ class HomePage extends GetView<HomeController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Appbar(),
+                  Appbar(),
                   const SizedBox(
                     height: 24,
                   ),
@@ -60,18 +60,33 @@ class HomePage extends GetView<HomeController> {
                   ),
                   controller.obx(
                     (_) {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: controller.surat.length,
-                        itemBuilder: (_, i) => tileSurat(
-                          i + 1,
-                          controller.surat[i].numberOfSurah!,
-                          controller.surat[i].numberOfAyah!,
-                          controller.surat[i].name!,
-                          controller.surat[i].type!,
-                        ),
-                      );
+                      if (controller.isSearch.value == false) {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: controller.surat.length,
+                          itemBuilder: (_, i) => tileSurat(
+                            i + 1,
+                            controller.surat[i].numberOfSurah!,
+                            controller.surat[i].numberOfAyah!,
+                            controller.surat[i].name!,
+                            controller.surat[i].type!,
+                          ),
+                        );
+                      } else {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: controller.searchSurat.length,
+                          itemBuilder: (_, i) => tileSurat(
+                            i + 1,
+                            controller.searchSurat[i].numberOfSurah!,
+                            controller.searchSurat[i].numberOfAyah!,
+                            controller.searchSurat[i].name!,
+                            controller.searchSurat[i].type!,
+                          ),
+                        );
+                      }
                     },
                     onLoading: Center(
                       child: LoadingAnimationWidget.staggeredDotsWave(
