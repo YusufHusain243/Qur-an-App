@@ -13,13 +13,13 @@ class SplashScreen extends StatelessWidget {
         backgroundColor: primary,
         body: Container(
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: defaultMagrin),
+          padding: EdgeInsets.symmetric(
+            horizontal: defaultMagrin,
+            vertical: 86,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(
-                height: 86,
-              ),
               const Text(
                 'Qur`an App',
                 style: TextStyle(

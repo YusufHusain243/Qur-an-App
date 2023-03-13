@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:quran_app/bindings/home_binding.dart';
 import 'package:quran_app/pages/home_page.dart';
 import 'package:quran_app/pages/splash_screen_page.dart';
 import 'package:quran_app/routes/route_name.dart';
@@ -11,7 +12,8 @@ class AppPage {
     ),
     GetPage(
       name: RouteName.home,
-      page: () => const HomePage(),
+      page: () => HomePage(),
+      binding: HomeBinding(),
     ),
   ];
 }
