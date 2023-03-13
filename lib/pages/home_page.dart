@@ -56,7 +56,7 @@ class HomePage extends GetView<HomeController> {
                   ),
                   lastRead(),
                   const SizedBox(
-                    height: 28,
+                    height: 14,
                   ),
                   controller.obx(
                     (_) {
@@ -65,12 +65,18 @@ class HomePage extends GetView<HomeController> {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: controller.surat.length,
-                          itemBuilder: (_, i) => tileSurat(
-                            i + 1,
-                            controller.surat[i].numberOfSurah!,
-                            controller.surat[i].numberOfAyah!,
-                            controller.surat[i].name!,
-                            controller.surat[i].type!,
+                          itemBuilder: (_, i) => InkWell(
+                            onTap: () {
+                              print("ini tile");
+                            },
+                            child: tileSurat(
+                              i + 1,
+                              controller.surat[i].numberOfSurah!,
+                              controller.surat[i].numberOfAyah!,
+                              controller.surat[i].name!,
+                              controller.surat[i].type!,
+                              controller.surat[i].audioUrl!,
+                            ),
                           ),
                         );
                       } else {
@@ -78,12 +84,18 @@ class HomePage extends GetView<HomeController> {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: controller.searchSurat.length,
-                          itemBuilder: (_, i) => tileSurat(
-                            i + 1,
-                            controller.searchSurat[i].numberOfSurah!,
-                            controller.searchSurat[i].numberOfAyah!,
-                            controller.searchSurat[i].name!,
-                            controller.searchSurat[i].type!,
+                          itemBuilder: (_, i) => InkWell(
+                            onTap: () {
+                              print("ini tile");
+                            },
+                            child: tileSurat(
+                              i + 1,
+                              controller.searchSurat[i].numberOfSurah!,
+                              controller.searchSurat[i].numberOfAyah!,
+                              controller.searchSurat[i].name!,
+                              controller.searchSurat[i].type!,
+                              controller.searchSurat[i].audioUrl!,
+                            ),
                           ),
                         );
                       }
@@ -121,10 +133,14 @@ class HomePage extends GetView<HomeController> {
     int numberOfAyat,
     String name,
     String type,
+    String url,
   ) {
     return SizedBox(
       child: Column(
         children: [
+          const SizedBox(
+            height: 16,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -212,7 +228,9 @@ class HomePage extends GetView<HomeController> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        print("ini play");
+                      },
                       icon: const Icon(
                         Icons.play_arrow,
                         color: Colors.white,
@@ -229,9 +247,6 @@ class HomePage extends GetView<HomeController> {
           Divider(
             color: secondary,
             thickness: 1,
-          ),
-          const SizedBox(
-            height: 16,
           ),
         ],
       ),
