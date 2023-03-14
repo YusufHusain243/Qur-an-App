@@ -35,18 +35,18 @@ class HomePage extends GetView<HomeController> {
                   color: secondary,
                 ),
               ),
-              const SizedBox(
-                height: 8,
-              ),
-              const Text(
-                "Yusuf Husain",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontFamily: "Poppins",
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
+              // const SizedBox(
+              //   height: 8,
+              // ),
+              // const Text(
+              //   "Yusuf Husain",
+              //   style: TextStyle(
+              //     fontSize: 24,
+              //     fontFamily: "Poppins",
+              //     fontWeight: FontWeight.w600,
+              //     color: Colors.white,
+              //   ),
+              // ),
               const SizedBox(
                 height: 28,
               ),
@@ -91,7 +91,10 @@ class HomePage extends GetView<HomeController> {
                             itemCount: controller.searchSurat.length,
                             itemBuilder: (_, i) => InkWell(
                               onTap: () {
-                                Get.toNamed(RouteName.surat);
+                                Get.toNamed(
+                                  RouteName.surat,
+                                  arguments: controller.searchSurat[i],
+                                );
                               },
                               child: tileSurat(
                                 i + 1,

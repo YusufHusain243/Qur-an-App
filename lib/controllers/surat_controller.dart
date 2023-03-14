@@ -6,23 +6,6 @@ import 'package:quran_app/providers/surat_provider.dart';
 
 class SuratController extends GetxController with StateMixin<Map> {
   RxList<DetailSurat> detailSurat = RxList<DetailSurat>();
-  // RxList<Surat> searchSurat = RxList<Surat>();
-
-  // var isSearch = false.obs;
-  // late TextEditingController searchController;
-
-  @override
-  void onInit() {
-    super.onInit();
-    change(null, status: RxStatus.empty());
-    // searchController = TextEditingController();
-  }
-
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   searchController.dispose();
-  // }
 
   void get(int number) {
     try {
@@ -45,17 +28,4 @@ class SuratController extends GetxController with StateMixin<Map> {
       return;
     }
   }
-
-  // void changeSearch(bool isSearch) {
-  //   this.isSearch.value = isSearch;
-  //   searchSurat.value = surat;
-  //   update();
-  // }
-
-  // void search(String query) {
-  //   if (query.isNotEmpty) {
-  //     searchSurat.value = surat.where((e) => e.name!.contains(query)).toList();
-  //     update();
-  //   }
-  // }
 }

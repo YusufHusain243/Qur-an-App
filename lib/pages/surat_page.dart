@@ -75,14 +75,19 @@ class SuratPage extends GetView<SuratController> {
                           size: 50,
                         ),
                       ),
-                      onError: (error) => Center(
-                        child: Text(
-                          'Error: $error',
-                          style: const TextStyle(
-                            fontFamily: "Poppins",
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
+                      onError: (error) => RefreshIndicator(
+                        onRefresh: () async {
+                          controller.get(surat.numberOfSurah!);
+                        },
+                        child: Center(
+                          child: Text(
+                            'Error: $error',
+                            style: const TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -283,18 +288,18 @@ class SuratPage extends GetView<SuratController> {
             color: Colors.white,
           ),
         ),
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Icon(
-                Icons.search,
-                size: 24,
-                color: secondary,
-              ),
-            ],
-          ),
-        ),
+        // Expanded(
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.end,
+        //     children: [
+        //       Icon(
+        //         Icons.search,
+        //         size: 24,
+        //         color: secondary,
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ],
     );
   }
