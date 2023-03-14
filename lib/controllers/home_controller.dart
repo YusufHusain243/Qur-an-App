@@ -29,7 +29,7 @@ class HomeController extends GetxController with StateMixin<Map> {
   void get() {
     try {
       change(null, status: RxStatus.loading());
-      SuratProvider().getData().then((response) {
+      SuratProvider().getDataSurat().then((response) {
         if (response.statusCode == 200) {
           List jsonResponse = json.decode(response.body);
           surat.value =
