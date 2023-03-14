@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran_app/controllers/home_controller.dart';
+import 'package:quran_app/routes/route_name.dart';
 import 'package:quran_app/theme.dart';
 import 'package:quran_app/widgets/appbar.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -13,114 +14,119 @@ class HomePage extends GetView<HomeController> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: primary,
-        body: RefreshIndicator(
-          onRefresh: () async {
-            controller.get();
-          },
-          child: SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                vertical: 35,
-                horizontal: defaultMagrin,
+        body: Container(
+          padding: EdgeInsets.symmetric(
+            vertical: 35,
+            horizontal: defaultMagrin,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Appbar(),
+              const SizedBox(
+                height: 24,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Appbar(),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Text(
-                    "Assalamualaikum",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontFamily: "Poppins",
-                      fontWeight: FontWeight.w500,
-                      color: secondary,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const Text(
-                    "Yusuf Husain",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontFamily: "Poppins",
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 28,
-                  ),
-                  lastRead(),
-                  const SizedBox(
-                    height: 14,
-                  ),
-                  controller.obx(
-                    (_) {
-                      if (controller.isSearch.value == false) {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: controller.surat.length,
-                          itemBuilder: (_, i) => InkWell(
-                            onTap: () {
-                              print("ini tile");
-                            },
-                            child: tileSurat(
-                              i + 1,
-                              controller.surat[i].numberOfSurah!,
-                              controller.surat[i].numberOfAyah!,
-                              controller.surat[i].name!,
-                              controller.surat[i].type!,
-                              controller.surat[i].audioUrl!,
+              Text(
+                "Assalamualaikum",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: "Poppins",
+                  fontWeight: FontWeight.w500,
+                  color: secondary,
+                ),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              const Text(
+                "Yusuf Husain",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontFamily: "Poppins",
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(
+                height: 28,
+              ),
+              lastRead(),
+              const SizedBox(
+                height: 14,
+              ),
+              Expanded(
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    controller.get();
+                  },
+                  child: SingleChildScrollView(
+                    child: controller.obx(
+                      (_) {
+                        if (controller.isSearch.value == false) {
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: controller.surat.length,
+                            itemBuilder: (_, i) => InkWell(
+                              onTap: () {
+                                Get.toNamed(
+                                  RouteName.surat,
+                                  arguments: controller.surat[i],
+                                );
+                              },
+                              child: tileSurat(
+                                i + 1,
+                                controller.surat[i].numberOfSurah!,
+                                controller.surat[i].numberOfAyah!,
+                                controller.surat[i].name!,
+                                controller.surat[i].type!,
+                                controller.surat[i].audioUrl!,
+                              ),
                             ),
-                          ),
-                        );
-                      } else {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: controller.searchSurat.length,
-                          itemBuilder: (_, i) => InkWell(
-                            onTap: () {
-                              print("ini tile");
-                            },
-                            child: tileSurat(
-                              i + 1,
-                              controller.searchSurat[i].numberOfSurah!,
-                              controller.searchSurat[i].numberOfAyah!,
-                              controller.searchSurat[i].name!,
-                              controller.searchSurat[i].type!,
-                              controller.searchSurat[i].audioUrl!,
+                          );
+                        } else {
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: controller.searchSurat.length,
+                            itemBuilder: (_, i) => InkWell(
+                              onTap: () {
+                                Get.toNamed(RouteName.surat);
+                              },
+                              child: tileSurat(
+                                i + 1,
+                                controller.searchSurat[i].numberOfSurah!,
+                                controller.searchSurat[i].numberOfAyah!,
+                                controller.searchSurat[i].name!,
+                                controller.searchSurat[i].type!,
+                                controller.searchSurat[i].audioUrl!,
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                    },
-                    onLoading: Center(
-                      child: LoadingAnimationWidget.staggeredDotsWave(
-                        color: Colors.white,
-                        size: 50,
-                      ),
-                    ),
-                    onError: (error) => Center(
-                      child: Text(
-                        'Error: $error',
-                        style: const TextStyle(
-                          fontFamily: "Poppins",
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
+                          );
+                        }
+                      },
+                      onLoading: Center(
+                        child: LoadingAnimationWidget.staggeredDotsWave(
                           color: Colors.white,
+                          size: 50,
+                        ),
+                      ),
+                      onError: (error) => Center(
+                        child: Text(
+                          'Error: $error',
+                          style: const TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),
