@@ -1,61 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:quran_app/controllers/home_controller.dart';
 import 'package:quran_app/theme.dart';
 
-class Appbar extends StatefulWidget {
-  const Appbar({
-    Key? key,
-  }) : super(key: key);
+class Appbar extends StatelessWidget {
+  Appbar({super.key});
 
-  @override
-  State<Appbar> createState() => _AppbarState();
-}
-
-class _AppbarState extends State<Appbar> {
-  bool isSearch = false;
-  late TextEditingController searchController;
-
-  @override
-  void initState() {
-    super.initState();
-    searchController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    searchController.dispose();
-  }
+  final homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: defaultMagrin),
-      child: isSearch == false
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                titleAppbar(),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      isSearch = true;
-                    });
-                  },
-                  child: Icon(
-                    Icons.search,
-                    color: secondary,
-                  ),
-                )
-              ],
+    return Obx(() {
+      if (homeController.isSearch.value == false) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            titleAppbar(),
+            InkWell(
+              onTap: () {
+                homeController.changeSearch(true);
+                homeController.searchController.clear();
+              },
+              child: Icon(
+                Icons.search,
+                color: secondary,
+              ),
             )
-          : search(),
-    );
+          ],
+        );
+      } else {
+        return search();
+      }
+    });
   }
 
   Widget search() {
     return SizedBox(
-      height: 50,
+      height: 40,
       child: TextField(
-        controller: searchController,
+        onChanged: (value) {
+          return homeController.search(value);
+        },
+        controller: homeController.searchController,
         cursorColor: Colors.white,
         style: const TextStyle(
           color: Colors.white,
@@ -73,9 +59,7 @@ class _AppbarState extends State<Appbar> {
           ),
           suffixIcon: IconButton(
             onPressed: () {
-              setState(() {
-                isSearch = false;
-              });
+              homeController.changeSearch(false);
             },
             icon: const Icon(
               Icons.close,
