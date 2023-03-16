@@ -15,79 +15,84 @@ class SuratPage extends GetView<SuratController> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: primary,
-        body: Container(
-          padding: EdgeInsets.symmetric(
-            vertical: 35,
-            horizontal: defaultMagrin,
-          ),
-          child: Column(
-            children: [
-              appbar(surat),
-              const SizedBox(
-                height: 24,
+        body: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.only(
+                top: 35,
+                bottom: 20,
+                left: defaultMagrin,
+                right: defaultMagrin,
               ),
-              cardSurat(surat),
-              const SizedBox(
-                height: 32,
+              child: Column(
+                children: [
+                  appbar(surat),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  cardSurat(surat),
+                ],
               ),
-              Expanded(
-                child: RefreshIndicator(
-                  onRefresh: () async {
-                    controller.get(surat.numberOfSurah!);
-                  },
-                  child: SingleChildScrollView(
-                    child: controller.obx(
-                      (_) {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: controller.detailSurat.length,
-                          itemBuilder: (_, i) {
-                            if (surat.name == "Al-Fatiha") {
+            ),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  controller.get(surat.numberOfSurah!);
+                },
+                child: SingleChildScrollView(
+                  child: controller.obx(
+                    (_) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: defaultMagrin),
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: controller.detailSurat.length,
+                        itemBuilder: (_, i) {
+                          if (surat.name == "Al-Fatiha") {
+                            return tileSurat(
+                              controller.detailSurat[i].number,
+                              controller.detailSurat[i].text,
+                              controller.detailSurat[i].textId,
+                            );
+                          } else {
+                            if (i == 0) {
+                              String substr =
+                                  controller.detailSurat[i].text.substring(38);
+                              return tileSurat(
+                                controller.detailSurat[i].number,
+                                substr,
+                                controller.detailSurat[i].textId,
+                              );
+                            } else {
                               return tileSurat(
                                 controller.detailSurat[i].number,
                                 controller.detailSurat[i].text,
                                 controller.detailSurat[i].textId,
                               );
-                            } else {
-                              if (i == 0) {
-                                String substr = controller.detailSurat[i].text
-                                    .substring(38);
-                                return tileSurat(
-                                  controller.detailSurat[i].number,
-                                  substr,
-                                  controller.detailSurat[i].textId,
-                                );
-                              } else {
-                                return tileSurat(
-                                  controller.detailSurat[i].number,
-                                  controller.detailSurat[i].text,
-                                  controller.detailSurat[i].textId,
-                                );
-                              }
                             }
-                          },
-                        );
-                      },
-                      onLoading: Center(
-                        child: LoadingAnimationWidget.staggeredDotsWave(
-                          color: Colors.white,
-                          size: 50,
-                        ),
-                      ),
-                      onError: (error) => RefreshIndicator(
-                        onRefresh: () async {
-                          controller.get(surat.numberOfSurah!);
+                          }
                         },
-                        child: Center(
-                          child: Text(
-                            'Error: $error',
-                            style: const TextStyle(
-                              fontFamily: "Poppins",
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
+                      );
+                    },
+                    onLoading: Center(
+                      child: LoadingAnimationWidget.staggeredDotsWave(
+                        color: Colors.white,
+                        size: 50,
+                      ),
+                    ),
+                    onError: (error) => RefreshIndicator(
+                      onRefresh: () async {
+                        controller.get(surat.numberOfSurah!);
+                      },
+                      child: Center(
+                        child: Text(
+                          'Error: $error',
+                          style: const TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -95,8 +100,8 @@ class SuratPage extends GetView<SuratController> {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
