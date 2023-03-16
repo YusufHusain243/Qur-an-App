@@ -31,10 +31,11 @@ dependencies:
     sdk: flutter
   get: ^4.6.5
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  loading_animation_widget: ^1.2.0+4
+  audioplayers: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -74,17 +75,20 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Montserrat
+    - family: Poppins
       fonts:
-        - asset: assets/fonts/Montserrat-Black.ttf
-        - asset: assets/fonts/Montserrat-Bold.ttf
-        - asset: assets/fonts/Montserrat-ExtraBold.ttf
-        - asset: assets/fonts/Montserrat-ExtraLight.ttf
-        - asset: assets/fonts/Montserrat-Light.ttf
-        - asset: assets/fonts/Montserrat-Medium.ttf
-        - asset: assets/fonts/Montserrat-Regular.ttf
-        - asset: assets/fonts/Montserrat-SemiBold.ttf
-        - asset: assets/fonts/Montserrat-Thin.ttf
+        - asset: assets/fonts/Poppins-Black.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins-ExtraBold.ttf
+        - asset: assets/fonts/Poppins-Light.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins-Thin.ttf
+    - family: Amiri
+      fonts:
+        - asset: assets/fonts/Amiri-Bold.ttf
+        - asset: assets/fonts/Amiri-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
