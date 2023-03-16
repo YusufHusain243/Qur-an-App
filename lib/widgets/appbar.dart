@@ -36,7 +36,7 @@ class Appbar extends StatelessWidget {
 
   Widget search() {
     return SizedBox(
-      height: 50,
+      height: 40,
       child: TextField(
         onChanged: (value) {
           return homeController.search(value);

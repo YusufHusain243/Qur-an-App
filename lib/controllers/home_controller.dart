@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran_app/models/surat_model.dart';
@@ -8,6 +9,9 @@ import 'package:quran_app/providers/surat_provider.dart';
 class HomeController extends GetxController with StateMixin<Map> {
   RxList<Surat> surat = RxList<Surat>();
   RxList<Surat> searchSurat = RxList<Surat>();
+  RxInt selectedIndex = RxInt(-1);
+
+  AudioPlayer audioPlayer = AudioPlayer();
 
   var isSearch = false.obs;
   late TextEditingController searchController;
@@ -24,6 +28,16 @@ class HomeController extends GetxController with StateMixin<Map> {
   void dispose() {
     super.dispose();
     searchController.dispose();
+  }
+
+  void stopAudio() async {
+    await audioPlayer.stop();
+    update();
+  }
+
+  Future<void> playAudio(Source source) async {
+    await audioPlayer.play(source);
+    update();
   }
 
   void get() {
