@@ -19,7 +19,7 @@ class AppPage {
     ),
     GetPage(
       name: RouteName.surat,
-      page: () => const SuratPage(),
+      page: () => SuratPage(),
       binding: SuratBinding(),
     ),
   ];
