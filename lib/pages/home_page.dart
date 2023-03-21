@@ -6,6 +6,7 @@ import 'package:quran_app/routes/route_name.dart';
 import 'package:quran_app/theme.dart';
 import 'package:quran_app/widgets/appbar.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:quran_app/widgets/last_read.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
@@ -55,7 +56,7 @@ class HomePage extends GetView<HomeController> {
                   const SizedBox(
                     height: 28,
                   ),
-                  lastRead(),
+                  LastRead(),
                 ],
               ),
             ),
@@ -311,71 +312,6 @@ class HomePage extends GetView<HomeController> {
             thickness: 1,
           ),
         ],
-      ),
-    );
-  }
-
-  Container lastRead() {
-    return Container(
-      decoration: BoxDecoration(
-        image: const DecorationImage(
-          image: AssetImage('assets/images/last_read.png'),
-          fit: BoxFit.cover,
-        ),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Image.asset(
-                  "assets/images/icon_book.png",
-                  width: 20,
-                  height: 20,
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                const Text(
-                  "Last Read",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: "Poppins",
-                    color: Colors.white,
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Text(
-              "Al-Fatihah",
-              style: TextStyle(
-                fontFamily: "Poppins",
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            const Text(
-              "Ayat No : 1",
-              style: TextStyle(
-                fontFamily: "Poppins",
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
