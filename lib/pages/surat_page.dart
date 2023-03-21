@@ -1,13 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:quran_app/controllers/home_controller.dart';
 import 'package:quran_app/controllers/surat_controller.dart';
 import 'package:quran_app/models/surat_model.dart';
 import 'package:quran_app/theme.dart';
 
 class SuratPage extends GetView<SuratController> {
-  const SuratPage({super.key});
-
+  SuratPage({super.key});
+  final homeC = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     final surat = Get.arguments as Surat;
@@ -50,25 +53,96 @@ class SuratPage extends GetView<SuratController> {
                         itemCount: controller.detailSurat.length,
                         itemBuilder: (_, i) {
                           if (surat.name == "Al-Fatiha") {
-                            return tileSurat(
-                              controller.detailSurat[i].number,
-                              controller.detailSurat[i].text,
-                              controller.detailSurat[i].textId,
+                            return InkWell(
+                              onLongPress: () {
+                                Get.defaultDialog(
+                                  title: "Terakhir Dibaca",
+                                  content:
+                                      const Text("Simpan Terakhir Dibaca?"),
+                                  textConfirm: "OK",
+                                  confirmTextColor: Colors.white,
+                                  onConfirm: () async {
+                                    var data = {
+                                      "surat": surat.name,
+                                      "ayat": controller.detailSurat[i].number,
+                                      "index": i,
+                                    };
+                                    String jsonSurat = json.encode(data);
+                                    controller.setLastRead(
+                                        "last_read", jsonSurat);
+                                    Get.back();
+                                    homeC.getData();
+                                  },
+                                );
+                              },
+                              child: tileSurat(
+                                controller.detailSurat[i].number,
+                                controller.detailSurat[i].text,
+                                controller.detailSurat[i].textId,
+                              ),
                             );
                           } else {
                             if (i == 0) {
                               String substr =
                                   controller.detailSurat[i].text.substring(38);
-                              return tileSurat(
-                                controller.detailSurat[i].number,
-                                substr,
-                                controller.detailSurat[i].textId,
+                              return InkWell(
+                                onLongPress: () {
+                                  Get.defaultDialog(
+                                    title: "Terakhir Dibaca",
+                                    content:
+                                        const Text("Simpan Terakhir Dibaca?"),
+                                    textConfirm: "OK",
+                                    confirmTextColor: Colors.white,
+                                    onConfirm: () async {
+                                      var data = {
+                                        "surat": surat.name,
+                                        "ayat":
+                                            controller.detailSurat[i].number,
+                                        "index": i,
+                                      };
+                                      String jsonSurat = json.encode(data);
+                                      controller.setLastRead(
+                                          "last_read", jsonSurat);
+                                      Get.back();
+                                      homeC.getData();
+                                    },
+                                  );
+                                },
+                                child: tileSurat(
+                                  controller.detailSurat[i].number,
+                                  substr,
+                                  controller.detailSurat[i].textId,
+                                ),
                               );
                             } else {
-                              return tileSurat(
-                                controller.detailSurat[i].number,
-                                controller.detailSurat[i].text,
-                                controller.detailSurat[i].textId,
+                              return InkWell(
+                                onLongPress: () {
+                                  Get.defaultDialog(
+                                    title: "Terakhir Dibaca",
+                                    content:
+                                        const Text("Simpan Terakhir Dibaca?"),
+                                    textConfirm: "OK",
+                                    confirmTextColor: Colors.white,
+                                    onConfirm: () async {
+                                      var data = {
+                                        "surat": surat.name,
+                                        "ayat":
+                                            controller.detailSurat[i].number,
+                                        "index": i,
+                                      };
+                                      String jsonSurat = json.encode(data);
+                                      controller.setLastRead(
+                                          "last_read", jsonSurat);
+                                      Get.back();
+                                      homeC.getData();
+                                    },
+                                  );
+                                },
+                                child: tileSurat(
+                                  controller.detailSurat[i].number,
+                                  controller.detailSurat[i].text,
+                                  controller.detailSurat[i].textId,
+                                ),
                               );
                             }
                           }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran_app/models/surat_model.dart';
 import 'package:quran_app/providers/surat_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController with StateMixin<Map> {
   RxList<Surat> surat = RxList<Surat>();
@@ -13,15 +14,18 @@ class HomeController extends GetxController with StateMixin<Map> {
 
   AudioPlayer audioPlayer = AudioPlayer();
 
+  RxMap data = {}.obs;
+
   var isSearch = false.obs;
   late TextEditingController searchController;
 
   @override
   void onInit() {
     super.onInit();
-    change(null, status: RxStatus.empty());
-    get();
     searchController = TextEditingController();
+    change(null, status: RxStatus.empty());
+    getData();
+    get();
   }
 
   @override
@@ -37,6 +41,14 @@ class HomeController extends GetxController with StateMixin<Map> {
 
   Future<void> playAudio(Source source) async {
     await audioPlayer.play(source);
+    update();
+  }
+
+  getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var dataJson = prefs.getString('last_read')!;
+    var dataValue = json.decode(dataJson);
+    data["data"] = dataValue;
     update();
   }
 
