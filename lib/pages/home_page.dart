@@ -56,12 +56,7 @@ class HomePage extends GetView<HomeController> {
                   const SizedBox(
                     height: 28,
                   ),
-                  InkWell(
-                    onTap: () {
-                      controller.getData();
-                    },
-                    child: LastRead(),
-                  ),
+                  LastRead(),
                 ],
               ),
             ),
